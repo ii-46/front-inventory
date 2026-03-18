@@ -12,7 +12,7 @@ import 'vuetify/styles'
 export default createVuetify({
   theme: {
     defaultTheme: 'system',
-    utilities: false,
+    utilities: true,
   },
   display: {
     mobileBreakpoint: 'md',

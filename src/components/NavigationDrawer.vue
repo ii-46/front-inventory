@@ -2,6 +2,9 @@
 
 
 import {ref} from "vue";
+import {pb} from "@/pocketbase";
+import {router} from "@/routes/routes.ts";
+import {toast} from "vue3-toastify";
 
 const drawer = defineModel({
   default: false
@@ -38,6 +41,12 @@ const menuList = [
   },
 ]
 
+async function logout() {
+  toast.info("Logout!")
+  await pb.authStore.clear();
+  location.reload();
+
+}
 </script>
 
 <template>
@@ -81,13 +90,21 @@ const menuList = [
             </template>
             <v-list-item-title>
               {{
-              item.title
+                item.title
               }}
             </v-list-item-title>
           </v-list-item>
         </RouterLink>
       </template>
     </v-list>
+    <v-col>
+      <v-spacer>
+      </v-spacer>
+      <v-container>
+        <v-btn variant="outlined" color="error" block @click="logout">Logout</v-btn>
+      </v-container>
+
+    </v-col>
   </v-navigation-drawer>
 
 </template>

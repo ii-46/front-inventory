@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire" :theme="theme">
+  <v-app :theme="theme">
     <template v-if="!isPreloading && isLogin">
       <v-app-bar>
         <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
@@ -53,6 +53,7 @@ const drawer = ref(true)
 
 const isPreloading = ref(false)
 const isLogin = ref(false);
+
 
 
 onMounted(async () => {
