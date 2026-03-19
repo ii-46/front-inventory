@@ -3,12 +3,14 @@ import {onMounted, ref} from 'vue'
 import {toast} from "vue3-toastify";
 import {useRules} from 'vuetify/labs/rules'
 import {pb} from "@/pocketbase";
+import {useAppStore} from "@/stores/app.ts";
 
 const rules = useRules()
 const visible = ref(false)
 
+const appstore = useAppStore()
+const loading = ref(false)
 const form = ref()
-const isLogin = defineModel("isLogin", {default: false})
 
 const username = ref("")
 const password = ref("")
@@ -17,12 +19,23 @@ async function onSubmit() {
   const {valid} = await form.value.validate()
   pb.authStore.clear();
   if (!valid) return;
-  const authData = await pb.collection('users').authWithPassword(username.value, password.value).catch(console.log);
-  console.log(authData)
-  if (pb.authStore.isValid) {
-    toast.success("Login successful")
-  } else {
-    toast.error("Username or Password aren't valid")
+  try {
+    loading.value = true
+    const authData = await pb.collection('users').authWithPassword(username.value, password.value).catch(console.log);
+    console.log(authData)
+    if (pb.authStore.isValid) {
+      toast.success("Login successful")
+      setTimeout(() => {
+        appstore.$state.isLogin = true
+      }, 1000)
+    } else {
+      toast.error("Username or Password aren't valid")
+      appstore.$state.isLogin = false
+    }
+  } catch (e) {
+    console.error(e)
+  } finally {
+    loading.value = false
   }
 
 }
@@ -32,11 +45,11 @@ async function onSubmit() {
 <template>
   <v-container class="grid place-content-center min-h-screen">
     <v-container>
-      <v-img
-          class="mx-auto my-6"
-          max-width="228"
-          src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"
-      ></v-img>
+<!--      <v-img-->
+<!--          class="mx-auto my-6"-->
+<!--          max-width="228"-->
+<!--          src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"-->
+<!--      ></v-img>-->
 
       <v-card
           class="mx-auto pa-12 py-8 px-8"
@@ -86,11 +99,13 @@ async function onSubmit() {
           </v-card>
 
           <v-btn
+              :loading="loading"
               class="mb-2"
-              color="blue"
+              color="primary"
               size="large"
-              variant="tonal"
+              variant="flat"
               block
+              :disabled="appstore.isLogin"
               @click="onSubmit"
           >
             Log In

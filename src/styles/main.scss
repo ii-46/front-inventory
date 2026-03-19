@@ -1,3 +1,12 @@
+// main.scss
+$heading-font: 'Noto Sans Lao', sans-serif;
+$body-font: 'Noto Sans Lao', sans-serif;
+
+@use 'vuetify' with (
+  $heading-font-family: $heading-font,
+  $body-font-family: $body-font,
+  $font-size-root: 17px
+);
 @layer vuetify-overrides {
   code, pre, .v-code {
     font-family: var(--font-mono);

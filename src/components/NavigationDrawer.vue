@@ -43,9 +43,9 @@ const menuList = [
 
 async function logout() {
   toast.info("Logout!")
-  await pb.authStore.clear();
+  pb.authStore.clear();
+  await router.push("/")
   location.reload();
-
 }
 </script>
 

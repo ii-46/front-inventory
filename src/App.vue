@@ -1,6 +1,6 @@
 <template>
   <v-app :theme="theme">
-    <template v-if="!isPreloading && isLogin">
+    <template v-if="!preloading && isLogin">
       <v-app-bar>
         <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
@@ -17,7 +17,8 @@
         <RouterView></RouterView>
       </v-main>
     </template>
-    <template v-if="!isPreloading && !isLogin">
+    <template v-else-if="!preloading && !isLogin">
+
       <Login></Login>
     </template>
     <template v-else>
@@ -34,11 +35,14 @@
 </template>
 
 <script lang="ts" setup>
-import {ref, shallowRef, onMounted} from 'vue'
+import {ref, shallowRef, onMounted, watch, computed, onUnmounted} from 'vue'
 import NavigationDrawer from "@/components/NavigationDrawer.vue";
 import {RouterView} from "vue-router";
 import {pb} from "@/pocketbase";
 import Login from "@/components/Login.vue";
+import type {AuthRecord} from "pocketbase";
+import {useAppStore} from "@/stores/app.ts";
+import {storeToRefs} from "pinia";
 
 
 const theme = ref('light')
@@ -50,24 +54,23 @@ function onClick() {
 const drawer = ref(true)
 
 // menu list
+const appstore = useAppStore()
+const {preloading, isLogin} = storeToRefs(appstore)
 
-const isPreloading = ref(false)
-const isLogin = ref(false);
-
-
-
+let unsubAuthStore: (() => void) | null = null;
 onMounted(async () => {
-  isPreloading.value = true;
-  try {
-
-    console.log("is valid: ", pb.authStore.isValid)
-    if (pb.authStore.isValid) {
+  unsubAuthStore = pb.authStore.onChange((token: string, record: AuthRecord) => {
+    if (token) {
       isLogin.value = true
+    } else {
+      isLogin.value = false
     }
-  } catch (e) {
-    console.log(e)
-  } finally {
-    isPreloading.value = false
-  }
+    preloading.value = false;
+  }, true)
+})
+
+
+onUnmounted(() => {
+  if (unsubAuthStore != null) unsubAuthStore();
 })
 </script>
