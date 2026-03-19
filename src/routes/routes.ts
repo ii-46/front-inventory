@@ -8,7 +8,7 @@ const routes = [
     {
         path: '/administration',
         children: [
-            {path: '', redirect: "manage-user"},
+            {path: '', redirect: "administration/manage-user"},
             {path: 'manage-user', component: ManageUserView},
         ]
     },

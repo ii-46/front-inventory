@@ -1,9 +1,11 @@
 <script setup lang="ts">
 
+import Breadcrumbs from "@/components/Breadcrumbs.vue";
 </script>
 
 <template>
-<h1>UserView</h1>
+  <Breadcrumbs></Breadcrumbs>
+  <h1>UserView</h1>
 </template>
 
 <style scoped>

@@ -35,9 +35,17 @@ const menuList = [
     subtitle: "Administration",
   },
   {
+    spacer: true
+  },
+  {
     to: "/administration/manage-user",
-    title: "Taxpayer",
-    icon: 'mdi-building',
+    title: "Users",
+    icon: 'mdi-account-box-multiple',
+  },
+  {
+    to: "/administration/manage-group",
+    title: "Groups",
+    icon: 'mdi-account-group',
   },
   {
     spacer: true
