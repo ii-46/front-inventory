@@ -4,6 +4,7 @@ import {useUsersStore} from "@/stores/users.ts";
 import {computed, onMounted, onUnmounted} from "vue";
 import {displayDate, displayTimestamp} from "@/utils/displayFormaters.ts";
 import {useTheme} from "vuetify/framework";
+import CreateUserDialog from "@/components/users/CreateUserDialog.vue";
 
 const them = useTheme()
 const usersStore = useUsersStore();
@@ -22,6 +23,10 @@ const tableHeaders = computed(() => ([
   {
     title: 'Name',
     key: 'name',
+    align: 'left'
+  }, {
+    title: 'Phone',
+    key: 'phone',
     align: 'left'
   },
   {
@@ -54,7 +59,7 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
-  usersStore.unsub();
+  usersStore.unsubUsers();
 })
 </script>
 
@@ -64,9 +69,10 @@ onUnmounted(() => {
     <v-container>
       <Breadcrumbs></Breadcrumbs>
       <div class="flex justify-between">
-        <h1 class="text-2xl font-bold py-3">User Management</h1>
+        <h1 class="text-2xl font-semibold py-3">User Management</h1>
         <div class="flex align-center">
-          <v-btn prepend-icon="mdi-plus">Add user</v-btn>
+<!--          <v-btn prepend-icon="mdi-plus">Add user</v-btn>-->
+          <CreateUserDialog></CreateUserDialog>
         </div>
       </div>
 

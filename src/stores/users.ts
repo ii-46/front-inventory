@@ -7,6 +7,8 @@ export const useUsersStore = defineStore("users", {
     state: () => ({
         users: [] as RecordModel[],
         filter: "",
+        companies: [] as RecordModel[],
+        groups: [] as RecordModel[],
     }),
     actions: {
         listenToUsers: async function () {
@@ -24,12 +26,36 @@ export const useUsersStore = defineStore("users", {
                 expand: "group_id,company_id"
             });
         },
-        unsub: async function() {
+        unsubUsers: async function () {
             await pb.collection('users').unsubscribe('*');
-           this.users = [];
+            this.users = [];
         },
-        async createUser() {
+        async createUser(data: {
+            email: string,
+            name: string,
+            group_id: string,
+            phone: string,
+            company_id: string
 
-        }
+        }) {
+            const payload = {
+                "email": data.email,
+                "emailVisibility": true,
+                "name": data.name,
+                "group_id": data.group_id,
+                "phone": data.phone,
+                "company_id": data.company_id,
+                "password": "12345678",
+                "passwordConfirm": "12345678"
+            };
+
+            return await pb.collection('users').create(payload)
+        },
+        fetchCompanyList: async function () {
+            return await pb.collection('company').getFullList({});
+        },
+        fetchGroupList: async function () {
+            return await pb.collection('group').getFullList({});
+        },
     }
 });
