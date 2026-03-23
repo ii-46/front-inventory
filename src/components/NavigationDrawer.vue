@@ -66,6 +66,11 @@ const menuList = [
     title: "Transaction Type",
     icon: 'mdi-format-list-bulleted-type',
   },
+  {
+    to: "/inventory/manage-inventory",
+    title: "Inventory",
+    icon: 'mdi-warehouse',
+  },
 ]
 
 async function logout() {
@@ -126,14 +131,12 @@ async function logout() {
         </RouterLink>
       </template>
     </v-list>
-    <v-col>
-      <v-spacer>
-      </v-spacer>
-      <v-container>
-        <v-btn variant="outlined" color="error" block @click="logout">Logout</v-btn>
-      </v-container>
+    <template v-slot:append>
+        <v-container>
+          <v-btn variant="outlined" color="error" block @click="logout">Logout</v-btn>
+        </v-container>
 
-    </v-col>
+    </template>
   </v-navigation-drawer>
 
 </template>
