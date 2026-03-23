@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import {reactive, ref, watch} from "vue";
+import {ref, watch} from "vue";
 import {useRules} from 'vuetify/labs/rules'
-import {useUsersStore} from "@/stores/users.ts";
 import {toast} from "vue3-toastify";
-import {useGroupStore} from "@/stores/groups.ts";
 import {useDeviceStore} from "@/stores/device.ts";
 
 const deviceStore = useDeviceStore()
@@ -28,7 +26,7 @@ async function onSubmit() {
   if (!valid) return;
   try {
     loading.value = true
-    await deviceStore.createDevice({
+    await deviceStore.createDeviceType({
       name: name.value,
       snStartWith: snStartWith.value || ""
     });

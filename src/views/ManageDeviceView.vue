@@ -1,10 +1,6 @@
 <script setup lang="ts">
 
 import Breadcrumbs from "@/components/Breadcrumbs.vue";
-import DeleteGroupDialog from "@/components/group/DeleteGroupDialog.vue";
-import EditGroupDialog from "@/components/group/EditGroupDialog.vue";
-import CreateGroupDialog from "@/components/group/CreateGroupDialog.vue";
-import {useGroupStore} from "@/stores/groups.ts";
 import {computed, onMounted, onUnmounted} from "vue";
 import {displayDate} from "@/utils/displayFormaters.ts";
 import {useDeviceStore} from "@/stores/device.ts";
@@ -48,11 +44,11 @@ const tableHeaders = computed(() => ([
   }
 ]))
 onMounted(() => {
-  deviceStore.listenToDevices()
+  deviceStore.listenToDeviceTypes()
 })
 
 onUnmounted(() => {
-  deviceStore.unsubDevice()
+  deviceStore.unsubDeviceTypes()
 })
 </script>
 
@@ -68,7 +64,7 @@ onUnmounted(() => {
       </div>
 
       <v-card>
-        <v-data-table :items="deviceStore.devices" :headers="tableHeaders">
+        <v-data-table :items="deviceStore.deviceTypes" :headers="tableHeaders">
           <template v-slot:item.no="{ value , index}">
             {{ index + 1 }}
           </template>

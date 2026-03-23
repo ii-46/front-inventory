@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {ref} from "vue";
 import {toast} from "vue3-toastify";
-import {useGroupStore} from "@/stores/groups.ts";
 import {useDeviceStore} from "@/stores/device.ts";
 
 const dialog = ref(false);
@@ -24,7 +23,7 @@ async function onDelete() {
   if (!props.id) return;
   try {
     loading.value = true
-    await deviceStore.deleteDevice(props.id)
+    await deviceStore.deleteDeviceType(props.id)
     toast.success("Delete group " + props.name)
   } catch (e) {
     toast.error(e)

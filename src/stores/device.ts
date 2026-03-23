@@ -4,27 +4,27 @@ import type {RecordModel} from "pocketbase";
 
 export const useDeviceStore = defineStore("devices", {
     state: () => ({
-        devices: [] as RecordModel[],
+        deviceTypes: [] as RecordModel[],
     }),
     actions: {
-        listenToDevices: async function () {
-            this.devices = (await this.fetchDeviceList())
-            console.log(this.devices[0])
+        listenToDeviceTypes: async function () {
+            this.deviceTypes = (await this.fetchDeviceTypeList())
+            console.log(this.deviceTypes[0])
             await pb.collection('device_type').subscribe('*', async (e) => {
                     console.log('device_type', e)
-                    this.devices = (await this.fetchDeviceList())
-                    console.log(this.devices[0])
+                    this.deviceTypes = (await this.fetchDeviceTypeList())
+                    console.log(this.deviceTypes[0])
                 }
             );
         },
-        fetchDeviceList: async function () {
+        fetchDeviceTypeList: async function () {
             return await pb.collection('device_type').getFullList({});
         },
-        unsubDevice: async function () {
+        unsubDeviceTypes: async function () {
             await pb.collection('device_type').unsubscribe('*');
-            this.devices = [];
+            this.deviceTypes = [];
         },
-        async createDevice(data: {
+        async createDeviceType(data: {
             name: string,
             snStartWith: string
 
@@ -36,10 +36,10 @@ export const useDeviceStore = defineStore("devices", {
 
             return await pb.collection('device_type').create(payload)
         },
-        fetchDevice: async function (id: string) {
+        fetchDeviceType: async function (id: string) {
             return await pb.collection('device_type').getOne(id, {});
         },
-        async updateDevice(id: string, data: {
+        async updateDeviceType(id: string, data: {
             name: string,
             snStartWith: string
 
@@ -51,7 +51,7 @@ export const useDeviceStore = defineStore("devices", {
 
             return await pb.collection('device_type').update(id, payload)
         },
-        async deleteDevice(id: string) {
+        async deleteDeviceType(id: string) {
             return await pb.collection('device_type').delete(id)
         },
     }
