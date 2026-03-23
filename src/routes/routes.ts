@@ -3,6 +3,7 @@ import {createMemoryHistory, createRouter, createWebHistory} from 'vue-router'
 import HelloWorld from '@/components/HelloWorld.vue'
 import ManageUserView from "@/views/ManageUserView.vue";
 import ManageGroupView from "@/views/ManageGroupView.vue";
+import ManageDeviceView from "@/views/ManageDeviceView.vue";
 
 const routes = [
     {path: '', component: HelloWorld},
@@ -12,6 +13,13 @@ const routes = [
             {path: '', redirect: "administration/manage-user"},
             {path: 'manage-user', component: ManageUserView},
             {path: 'manage-group', component: ManageGroupView},
+        ]
+    },
+    {
+        path: '/inventory',
+        children: [
+            {path: '', redirect: "inventory/manage-device"},
+            {path: 'manage-device', component: ManageDeviceView},
         ]
     },
     {path: '/taxpayer', component: HelloWorld},

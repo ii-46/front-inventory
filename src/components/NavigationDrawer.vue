@@ -51,12 +51,12 @@ const menuList = [
     spacer: true
   },
   {
-    subtitle: "report",
+    subtitle: "Inventory",
   },
   {
-    to: "/taxpayer",
-    title: "Taxpayer",
-    icon: 'mdi-building',
+    to: "/inventory/manage-device",
+    title: "Devices",
+    icon: 'mdi-monitor-shimmer',
   },
 ]
 
@@ -111,7 +111,7 @@ async function logout() {
             </template>
             <v-list-item-title>
               {{
-                item.title
+              item.title
               }}
             </v-list-item-title>
           </v-list-item>
