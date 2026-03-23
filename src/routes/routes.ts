@@ -6,6 +6,7 @@ import ManageGroupView from "@/views/ManageGroupView.vue";
 import ManageDeviceView from "@/views/ManageDeviceView.vue";
 import ManageTransactionTypeView from "@/views/ManageTransactionTypeView.vue";
 import ManageInventoryView from "@/views/inventory/ManageInventoryView.vue";
+import ImportDeviceListView from "@/views/inventory/ImportDeviceListView.vue";
 
 const routes = [
     {path: '', component: HelloWorld},
@@ -24,6 +25,7 @@ const routes = [
             {path: 'manage-device', component: ManageDeviceView},
             {path: 'manage-transaction-type', component: ManageTransactionTypeView},
             {path: 'manage-inventory', component: ManageInventoryView},
+            {path: 'import-device-list', component: ImportDeviceListView},
         ]
     },
     {path: '/taxpayer', component: HelloWorld},

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 
 
-import {ref} from "vue";
 import {pb} from "@/pocketbase";
 import {router} from "@/routes/routes.ts";
 import {toast} from "vue3-toastify";
@@ -70,7 +69,12 @@ const menuList = [
     to: "/inventory/manage-inventory",
     title: "Inventory",
     icon: 'mdi-warehouse',
-  },
+
+  },  {
+    to: "/inventory/import-device-list",
+    title: "Import SN list",
+    icon: 'mdi-table-arrow-left',
+  }
 ]
 
 async function logout() {
@@ -109,11 +113,11 @@ async function logout() {
           >
           </div>
         </template>
+
         <RouterLink
             v-else
             :to="item.to!"
         >
-
           <v-list-item
               :value="item"
               color="primary"
@@ -124,7 +128,7 @@ async function logout() {
             </template>
             <v-list-item-title>
               {{
-              item.title
+                item.title
               }}
             </v-list-item-title>
           </v-list-item>
@@ -132,9 +136,9 @@ async function logout() {
       </template>
     </v-list>
     <template v-slot:append>
-        <v-container>
-          <v-btn variant="outlined" color="error" block @click="logout">Logout</v-btn>
-        </v-container>
+      <v-container>
+        <v-btn variant="outlined" color="error" block @click="logout">Logout</v-btn>
+      </v-container>
 
     </template>
   </v-navigation-drawer>

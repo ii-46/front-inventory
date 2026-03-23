@@ -46,7 +46,7 @@ function onClose() {
 
 watch(dialog, async (newValue) => {
   if (newValue === true) {
-    const user = await deviceStore.fetchDevice(props.id)
+    const user = await deviceStore.fetchDeviceType(props.id)
     name.value = user["name"];
     snStartWith.value = user["sn_start_with"];
   } else {

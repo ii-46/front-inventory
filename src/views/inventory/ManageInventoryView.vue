@@ -69,6 +69,7 @@ onUnmounted(() => {
             prepend-icon="mdi-table-arrow-left"
             text="Import SN list"
             variant="elevated"
+            to="/inventory/import-device-list"
         ></MyAddBtn>
       </div>
       <v-card>

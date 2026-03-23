@@ -15,6 +15,16 @@ export default createVuetify({
         defaultTheme: 'light',
         utilities: true,
 
+    }, display: {
+        mobileBreakpoint: 'md',
+        thresholds: {
+            xs: 0,
+            sm: 600,
+            md: 840,
+            lg: 1145,
+            xl: 1545,
+            xxl: 2138,
+        },
     },
     aliases: {
         MyAddBtn: VBtn,
@@ -40,6 +50,9 @@ export default createVuetify({
             color: 'error',
             size: 'small',
             rounded: true,
+        },
+        VDateInput: {
+            variant: 'outlined', density: 'compact'
         }
     }
 })
